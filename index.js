@@ -32,6 +32,11 @@ app.use(express.static(path.join(__dirname, 'public'), {
 const adminRoutes = require('./src/routes/admin');
 app.use('/api/admin', adminRoutes); // All admin routes will be prefixed with /api/admin
 
+// Import and configure business management routes
+// These routes handle CRUD operations for businesses
+const businessRoutes = require('./src/routes/business');
+app.use('/api/businesses', businessRoutes); // All business routes will be prefixed with /api/businesses
+
 // Basic health check route
 // This is a simple route that responds with "hello whrix" to confirm the server is running
 app.get("/", async (req, res) => {

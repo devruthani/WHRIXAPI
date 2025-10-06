@@ -6,6 +6,8 @@
     "start": "node index.js",
     "dev": "node index.js",
     "setup": "node create-admin.js",
+    "migrate-profiles": "node migrate-profiles.js",
+    "migrate-businesses": "node migrate-businesses.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

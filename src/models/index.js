@@ -16,6 +16,11 @@ const sequelize = require("../config/database");  // Our database connection
 // Each model is a function that takes the sequelize connection and returns a model
 const Career = require("./career.model")(sequelize); // Career/job posting model
 const User = require("./user.model")(sequelize);     // User/admin authentication model
+const AdminProfile = require("./adminProfile.model")(sequelize); // Admin profile model
+const Business = require("./business.model")(sequelize); // Business model for API clients
+
+// Import associations function
+const defineAssociations = require("./associations");
 
 // Create a database object that contains all our models and utilities
 const DB = {};
@@ -29,7 +34,12 @@ DB.sequelize = sequelize;
 // Add all our models to the DB object
 DB.Career = Career;  // Career model for job postings
 DB.User = User;      // User model for admin authentication
+DB.AdminProfile = AdminProfile; // Admin profile model for extended user information
+DB.Business = Business; // Business model for API clients
+
+// Set up model associations
+defineAssociations(DB);
 
 // Export the DB object so other files can import and use our models
-// This allows us to do: const { Career, User } = require('./src/models');
+// This allows us to do: const { Career, User, AdminProfile } = require('./src/models');
 module.exports = DB;

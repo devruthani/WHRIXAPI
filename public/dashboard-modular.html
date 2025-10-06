@@ -215,6 +215,427 @@
             100% { transform: rotate(360deg); }
         }
 
+        /* Profile Dashboard Styles */
+        .profile-dashboard {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .profile-content {
+            display: grid;
+            gap: 2rem;
+        }
+
+        .profile-card {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .profile-info h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 0.25rem;
+        }
+
+        .profile-info p {
+            color: #6b7280;
+            margin-bottom: 0.5rem;
+        }
+
+        .role-badge {
+            background: #E8C547;
+            color: #111827;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-weight: 500;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a67d8;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #4b5563;
+            transform: translateY(-1px);
+        }
+
+        .profile-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-item {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e5e7eb;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #6b7280;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .quick-actions h3 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1rem;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .action-btn {
+            background: white;
+            border: 2px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+            color: #374151;
+        }
+
+        .action-btn:hover {
+            border-color: #667eea;
+            background: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+        }
+
+        .action-btn i {
+            font-size: 1.5rem;
+            color: #667eea;
+        }
+
+        /* Profile Tabs */
+        .profile-tabs {
+            display: flex;
+            border-bottom: 2px solid #e5e7eb;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 1rem 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #6b7280;
+            font-weight: 500;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .tab-button:hover {
+            color: #374151;
+            background: #f9fafb;
+        }
+
+        .tab-button.active {
+            color: #667eea;
+            border-bottom-color: #667eea;
+            background: #f8fafc;
+        }
+
+        .tab-content {
+            min-height: 400px;
+        }
+
+        .tab-panel h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #111827;
+            margin-bottom: 1.5rem;
+        }
+
+        .tab-panel h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #374151;
+            margin: 2rem 0 1rem 0;
+        }
+
+        /* Form Styles */
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Overview Grid */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .overview-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .overview-item label {
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .overview-item span {
+            color: #6b7280;
+        }
+
+        .status-active {
+            color: #059669 !important;
+            font-weight: 600;
+        }
+
+        .status-inactive {
+            color: #dc2626 !important;
+            font-weight: 600;
+        }
+
+        /* Security Sections */
+        .security-section {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: #f9fafb;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+        }
+
+        /* Preferences */
+        .preferences-section {
+            margin-bottom: 2rem;
+        }
+
+        .preference-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+        }
+
+        .preference-info label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.25rem;
+            display: block;
+        }
+
+        .preference-info p {
+            color: #6b7280;
+            font-size: 0.875rem;
+            margin: 0;
+        }
+
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 60px;
+            height: 34px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: #667eea;
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(26px);
+        }
+
+        /* Avatar Styles */
+        .profile-avatar {
+            position: relative;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .profile-avatar:hover {
+            transform: scale(1.05);
+        }
+
+        .avatar-overlay {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: #667eea;
+            color: white;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .profile-avatar:hover .avatar-overlay {
+            opacity: 1;
+        }
+
+        .profile-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .sidebar {
@@ -236,6 +657,42 @@
 
             .content-area {
                 padding: 1rem;
+            }
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .profile-actions {
+                justify-content: center;
+            }
+
+            .action-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-tabs {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                justify-content: flex-start;
+                border-bottom: 1px solid #e5e7eb;
+                border-right: 3px solid transparent;
+            }
+
+            .tab-button.active {
+                border-right-color: #667eea;
+                border-bottom-color: #e5e7eb;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .overview-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -312,6 +769,10 @@
                         </div>
                     </div>
                     
+                    <a href="#" class="nav-item" :class="{ active: currentPage === 'profile' }" @click="setActivePage('profile')">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.75rem;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                        Profile
+                    </a>
                     <a href="#" class="nav-item" :class="{ active: currentPage === 'settings' }" @click="setActivePage('settings')">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.75rem;"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
                         Settings
@@ -364,6 +825,7 @@
     <script src="js/pages/analytics.js"></script>
     <script src="js/pages/api-usage.js"></script>
     <script src="js/pages/sdk-monitor.js"></script>
+    <script src="js/pages/profile-dashboard.js"></script>
     <script src="js/pages/settings.js"></script>
     <script src="js/pages/landing-pages.js"></script>
 
@@ -394,6 +856,7 @@
                         'analytics': 'AnalyticsPage',
                         'api-usage': 'ApiUsagePage',
                         'sdk-monitor': 'SdkMonitorPage',
+                        'profile': 'ProfilePage',
                         'settings': 'SettingsPage',
                         'landing-home': 'LandingHomePage',
                         'landing-features': 'LandingFeaturesPage',
@@ -425,6 +888,7 @@
                         'analytics': 'Analytics',
                         'api-usage': 'API Usage',
                         'sdk-monitor': 'SDK Monitor',
+                        'profile': 'Admin Profile',
                         'settings': 'System Settings',
                         'landing-home': 'Landing - Home Page',
                         'landing-features': 'Landing - Features',
@@ -569,6 +1033,22 @@
             console.error('SdkMonitorPage component not found');
         }
         
+        if (window.ProfilePage) {
+            app.component('ProfilePage', {
+                ...window.ProfilePage,
+                data() {
+                    const originalData = window.ProfilePage.data ? window.ProfilePage.data() : {};
+                    return {
+                        ...originalData,
+                        utils: window.utils || {},
+                        mockData: window.mockData || {}
+                    };
+                }
+            });
+        } else {
+            console.error('ProfilePage component not found');
+        }
+
         if (window.SettingsPage) {
             app.component('SettingsPage', {
                 ...window.SettingsPage,

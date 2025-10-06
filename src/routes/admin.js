@@ -14,7 +14,8 @@ const express = require('express');     // Web framework for creating API routes
 const bcrypt = require('bcryptjs');     // Library for hashing passwords securely
 const jwt = require('jsonwebtoken');    // Library for creating and verifying JWT tokens
 const crypto = require('crypto');       // Built-in Node.js module for generating secure random tokens
-const { User } = require('../models');  // Import our User model from the models directory
+const { User, AdminProfile } = require('../models');  // Import our models from the models directory
+const { authenticateToken, requireAdmin, requireProfileOwnership } = require('../middleware/auth'); // Import authentication middleware
 
 // Create an Express router to handle our admin routes
 const router = express.Router();
@@ -307,6 +308,305 @@ router.get('/verify-token', async (req, res) => {
     res.status(401).json({ 
       success: false, 
       message: 'Invalid token' 
+    });
+  }
+});
+
+/**
+ * Get Admin Profile Route
+ * 
+ * GET /api/admin/profile
+ * 
+ * This route retrieves the current admin's profile information.
+ * It requires authentication and returns the user's profile data.
+ */
+router.get('/profile', authenticateToken, async (req, res) => {
+  try {
+    // Find the user with their profile
+    const user = await User.findByPk(req.user.id, {
+      include: [{
+        model: AdminProfile,
+        as: 'profile'
+      }]
+    });
+
+    if (!user) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'User not found' 
+      });
+    }
+
+    // Return user and profile information
+    res.json({
+      success: true,
+      user: {
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        isActive: user.isActive,
+        profile: user.profile || null
+      }
+    });
+
+  } catch (error) {
+    console.error('Get profile error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Internal server error' 
+    });
+  }
+});
+
+/**
+ * Create/Update Admin Profile Route
+ * 
+ * POST /api/admin/profile
+ * 
+ * This route creates or updates the admin's profile information.
+ * It requires authentication and allows updating profile details.
+ */
+router.post('/profile', authenticateToken, async (req, res) => {
+  try {
+    const {
+      firstName,
+      lastName,
+      profilePicture,
+      phoneNumber,
+      jobTitle,
+      department,
+      bio,
+      timezone,
+      language,
+      emailNotifications,
+      smsNotifications,
+      twoFactorEnabled
+    } = req.body;
+
+    // Check if profile already exists
+    let profile = await AdminProfile.findOne({ where: { userId: req.user.id } });
+
+    if (profile) {
+      // Update existing profile
+      await profile.update({
+        firstName,
+        lastName,
+        profilePicture,
+        phoneNumber,
+        jobTitle,
+        department,
+        bio,
+        timezone,
+        language,
+        emailNotifications,
+        smsNotifications,
+        twoFactorEnabled,
+        profileCompleted: true // Mark as completed when updated
+      });
+    } else {
+      // Create new profile
+      profile = await AdminProfile.create({
+        userId: req.user.id,
+        firstName,
+        lastName,
+        profilePicture,
+        phoneNumber,
+        jobTitle,
+        department,
+        bio,
+        timezone,
+        language,
+        emailNotifications,
+        smsNotifications,
+        twoFactorEnabled,
+        profileCompleted: true
+      });
+    }
+
+    // Return updated profile
+    res.json({
+      success: true,
+      message: 'Profile updated successfully',
+      profile
+    });
+
+  } catch (error) {
+    console.error('Update profile error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Internal server error' 
+    });
+  }
+});
+
+/**
+ * Update Admin Basic Information Route
+ * 
+ * PUT /api/admin/profile/basic
+ * 
+ * This route updates the admin's basic information (username, email).
+ * It requires authentication and validates the new information.
+ */
+router.put('/profile/basic', authenticateToken, async (req, res) => {
+  try {
+    const { username, email } = req.body;
+
+    // Validate required fields
+    if (!username || !email) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Username and email are required' 
+      });
+    }
+
+    // Check if username or email already exists (excluding current user)
+    const existingUser = await User.findOne({
+      where: {
+        [require('sequelize').Op.or]: [
+          { username },
+          { email }
+        ],
+        id: {
+          [require('sequelize').Op.ne]: req.user.id
+        }
+      }
+    });
+
+    if (existingUser) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Username or email already exists' 
+      });
+    }
+
+    // Update user information
+    await User.update(
+      { username, email },
+      { where: { id: req.user.id } }
+    );
+
+    // Return success response
+    res.json({
+      success: true,
+      message: 'Basic information updated successfully'
+    });
+
+  } catch (error) {
+    console.error('Update basic info error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Internal server error' 
+    });
+  }
+});
+
+/**
+ * Change Password Route
+ * 
+ * PUT /api/admin/profile/password
+ * 
+ * This route allows the admin to change their password.
+ * It requires authentication and validates the current password.
+ */
+router.put('/profile/password', authenticateToken, async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+
+    // Validate required fields
+    if (!currentPassword || !newPassword) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Current password and new password are required' 
+      });
+    }
+
+    // Validate new password length
+    if (newPassword.length < 6) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'New password must be at least 6 characters long' 
+      });
+    }
+
+    // Get current user
+    const user = await User.findByPk(req.user.id);
+    if (!user) {
+      return res.status(404).json({ 
+        success: false, 
+        message: 'User not found' 
+      });
+    }
+
+    // Verify current password
+    const isValidPassword = await bcrypt.compare(currentPassword, user.password);
+    if (!isValidPassword) {
+      return res.status(400).json({ 
+        success: false, 
+        message: 'Current password is incorrect' 
+      });
+    }
+
+    // Hash new password
+    const hashedPassword = await bcrypt.hash(newPassword, 10);
+
+    // Update password
+    await user.update({ password: hashedPassword });
+
+    // Return success response
+    res.json({
+      success: true,
+      message: 'Password changed successfully'
+    });
+
+  } catch (error) {
+    console.error('Change password error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Internal server error' 
+    });
+  }
+});
+
+/**
+ * Get All Admin Profiles Route (Admin Only)
+ * 
+ * GET /api/admin/profiles
+ * 
+ * This route retrieves all admin profiles.
+ * It requires admin authentication and returns all user profiles.
+ */
+router.get('/profiles', authenticateToken, requireAdmin, async (req, res) => {
+  try {
+    // Get all users with their profiles
+    const users = await User.findAll({
+      include: [{
+        model: AdminProfile,
+        as: 'profile'
+      }],
+      order: [['created_on', 'DESC']]
+    });
+
+    // Return users and profiles
+    res.json({
+      success: true,
+      users: users.map(user => ({
+        id: user.id,
+        username: user.username,
+        email: user.email,
+        role: user.role,
+        isActive: user.isActive,
+        profile: user.profile || null,
+        created_on: user.created_on,
+        updated_on: user.updated_on
+      }))
+    });
+
+  } catch (error) {
+    console.error('Get all profiles error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: 'Internal server error' 
     });
   }
 });
