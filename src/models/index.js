@@ -16,6 +16,22 @@ const sequelize = require("../config/database");  // Our database connection
 // Each model is a function that takes the sequelize connection and returns a model
 const Career = require("./career.model")(sequelize); // Career/job posting model
 const User = require("./user.model")(sequelize);     // User/admin authentication model
+const Hero = require("./components/hero.model")(sequelize);       // Hero section model
+const Solution = require("./components/solution.model")(sequelize); // Solution section model
+const Solutioncards = require("./components/solutioncards.model")(sequelize); // Solution cards section model
+const Featuregrid = require("./components/featuregrid.model")(sequelize); // Feature grid section model
+const Featuregridcard = require("./components/featuregridcard.model")(sequelize); // Feature cards section model
+
+
+
+
+
+
+//Sequelize associations, table and foreign key relationships 
+Solution.hasMany(Solutioncards, { foreignKey: "section_id", as: "Solution" });
+
+Solutioncards.belongsTo(Solution, { foreignKey: "section_id", as: "Solutioncards" });
+
 const AdminProfile = require("./adminProfile.model")(sequelize); // Admin profile model
 const Business = require("./business.model")(sequelize); // Business model for API clients
 
@@ -34,6 +50,11 @@ DB.sequelize = sequelize;
 // Add all our models to the DB object
 DB.Career = Career;  // Career model for job postings
 DB.User = User;      // User model for admin authentication
+DB.Hero = Hero;      // Hero section model
+DB.Solution = Solution;      // Solution section model
+DB.Solutioncards = Solutioncards;      // Solution cards section model
+DB.Featuregrid = Featuregrid;      // Feature grid section model
+DB.Featuregridcard = Featuregridcard;      // Feature cards section model
 DB.AdminProfile = AdminProfile; // Admin profile model for extended user information
 DB.Business = Business; // Business model for API clients
 

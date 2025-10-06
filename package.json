@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "dev": "node index.js",
+    "dev": "nodemon index.js",
     "setup": "node create-admin.js",
     "migrate-profiles": "node migrate-profiles.js",
     "migrate-businesses": "node migrate-businesses.js",
@@ -20,6 +20,7 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.15.1",
+    "nodemon": "^3.1.10",
     "sequelize": "^6.37.7"
   }
 }
