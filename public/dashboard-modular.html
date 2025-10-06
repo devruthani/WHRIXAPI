@@ -63,6 +63,49 @@
             border-left-color: #E8C547;
         }
 
+        /* Dropdown Styles */
+        .nav-dropdown {
+            position: relative;
+        }
+
+        .nav-dropdown-toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-dropdown-menu {
+            background: #1f2937;
+            border-left: 3px solid #374151;
+            margin-left: 1rem;
+            border-radius: 0 8px 8px 0;
+            overflow: hidden;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-dropdown-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: #9ca3af;
+            text-decoration: none;
+            transition: all 0.2s;
+            font-size: 0.875rem;
+            border-left: 3px solid transparent;
+        }
+
+        .nav-dropdown-item:hover {
+            background: #374151;
+            color: white;
+            border-left-color: #E8C547;
+        }
+
+        .nav-dropdown-item.active {
+            background: #374151;
+            color: #E8C547;
+            border-left-color: #E8C547;
+        }
+
         .main-content {
             flex: 1;
             margin-left: 250px;
@@ -238,6 +281,37 @@
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.75rem;"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27,6.96 12,12.01 20.73,6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg>
                         SDK Monitor
                     </a>
+                    <!-- Landing Dropdown -->
+                    <div class="nav-dropdown" :class="{ 'nav-dropdown-open': showLandingDropdown }">
+                        <a href="#" class="nav-item nav-dropdown-toggle" @click="toggleLandingDropdown">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.75rem;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9,22 9,12 15,12 15,22"/></svg>
+                            Landing
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-left: auto; transition: transform 0.2s;" :style="{ transform: showLandingDropdown ? 'rotate(180deg)' : 'rotate(0deg)' }"><polyline points="6,9 12,15 18,9"/></svg>
+                        </a>
+                        <div class="nav-dropdown-menu" v-show="showLandingDropdown">
+                            <a href="#" class="nav-dropdown-item" @click="setActivePage('landing-home')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+                                Home Page
+                            </a>
+                            <a href="#" class="nav-dropdown-item" @click="setActivePage('landing-features')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+                                Features
+                            </a>
+                            <a href="#" class="nav-dropdown-item" @click="setActivePage('landing-pricing')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                                Pricing
+                            </a>
+                            <a href="#" class="nav-dropdown-item" @click="setActivePage('landing-contact')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                                Contact
+                            </a>
+                            <a href="#" class="nav-dropdown-item" @click="setActivePage('landing-about')">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.5rem;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                                About Us
+                            </a>
+                        </div>
+                    </div>
+                    
                     <a href="#" class="nav-item" :class="{ active: currentPage === 'settings' }" @click="setActivePage('settings')">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-right: 0.75rem;"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
                         Settings
@@ -291,6 +365,7 @@
     <script src="js/pages/api-usage.js"></script>
     <script src="js/pages/sdk-monitor.js"></script>
     <script src="js/pages/settings.js"></script>
+    <script src="js/pages/landing-pages.js"></script>
 
     <script>
         const { createApp } = Vue;
@@ -306,7 +381,8 @@
                     },
                     loading: false,
                     utils: window.utils || {},
-                    mockData: window.mockData || {}
+                    mockData: window.mockData || {},
+                    showLandingDropdown: false
                 }
             },
             computed: {
@@ -318,7 +394,12 @@
                         'analytics': 'AnalyticsPage',
                         'api-usage': 'ApiUsagePage',
                         'sdk-monitor': 'SdkMonitorPage',
-                        'settings': 'SettingsPage'
+                        'settings': 'SettingsPage',
+                        'landing-home': 'LandingHomePage',
+                        'landing-features': 'LandingFeaturesPage',
+                        'landing-pricing': 'LandingPricingPage',
+                        'landing-contact': 'LandingContactPage',
+                        'landing-about': 'LandingAboutPage'
                     };
                     const component = pageMap[this.currentPage] || 'OverviewPage';
                     console.log('Current page:', this.currentPage, 'Component:', component);
@@ -330,6 +411,11 @@
                     console.log('Setting active page to:', page);
                     this.currentPage = page;
                     console.log('Current page after set:', this.currentPage);
+                    // Close dropdown when selecting a page
+                    this.showLandingDropdown = false;
+                },
+                toggleLandingDropdown() {
+                    this.showLandingDropdown = !this.showLandingDropdown;
                 },
                 getPageTitle() {
                     const titles = {
@@ -339,7 +425,12 @@
                         'analytics': 'Analytics',
                         'api-usage': 'API Usage',
                         'sdk-monitor': 'SDK Monitor',
-                        'settings': 'System Settings'
+                        'settings': 'System Settings',
+                        'landing-home': 'Landing - Home Page',
+                        'landing-features': 'Landing - Features',
+                        'landing-pricing': 'Landing - Pricing',
+                        'landing-contact': 'Landing - Contact',
+                        'landing-about': 'Landing - About Us'
                     };
                     return titles[this.currentPage] || 'Dashboard';
                 },
@@ -494,6 +585,86 @@
             console.error('SettingsPage component not found');
         }
 
+        // Register landing page components
+        if (window.LandingHomePage) {
+            app.component('LandingHomePage', {
+                ...window.LandingHomePage,
+                data() {
+                    const originalData = window.LandingHomePage.data ? window.LandingHomePage.data() : {};
+                    return {
+                        ...originalData,
+                        utils: window.utils || {},
+                        mockData: window.mockData || {}
+                    };
+                }
+            });
+        } else {
+            console.error('LandingHomePage component not found');
+        }
+
+        if (window.LandingFeaturesPage) {
+            app.component('LandingFeaturesPage', {
+                ...window.LandingFeaturesPage,
+                data() {
+                    const originalData = window.LandingFeaturesPage.data ? window.LandingFeaturesPage.data() : {};
+                    return {
+                        ...originalData,
+                        utils: window.utils || {},
+                        mockData: window.mockData || {}
+                    };
+                }
+            });
+        } else {
+            console.error('LandingFeaturesPage component not found');
+        }
+
+        if (window.LandingPricingPage) {
+            app.component('LandingPricingPage', {
+                ...window.LandingPricingPage,
+                data() {
+                    const originalData = window.LandingPricingPage.data ? window.LandingPricingPage.data() : {};
+                    return {
+                        ...originalData,
+                        utils: window.utils || {},
+                        mockData: window.mockData || {}
+                    };
+                }
+            });
+        } else {
+            console.error('LandingPricingPage component not found');
+        }
+
+        if (window.LandingContactPage) {
+            app.component('LandingContactPage', {
+                ...window.LandingContactPage,
+                data() {
+                    const originalData = window.LandingContactPage.data ? window.LandingContactPage.data() : {};
+                    return {
+                        ...originalData,
+                        utils: window.utils || {},
+                        mockData: window.mockData || {}
+                    };
+                }
+            });
+        } else {
+            console.error('LandingContactPage component not found');
+        }
+
+        if (window.LandingAboutPage) {
+            app.component('LandingAboutPage', {
+                ...window.LandingAboutPage,
+                data() {
+                    const originalData = window.LandingAboutPage.data ? window.LandingAboutPage.data() : {};
+                    return {
+                        ...originalData,
+                        utils: window.utils || {},
+                        mockData: window.mockData || {}
+                    };
+                }
+            });
+        } else {
+            console.error('LandingAboutPage component not found');
+        }
 
         // Mount the app
         app.mount('#app');
