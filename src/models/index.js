@@ -21,20 +21,20 @@ const Solution = require("./components/solution.model")(sequelize); // Solution 
 const Solutioncards = require("./components/solutioncards.model")(sequelize); // Solution cards section model
 const Featuregrid = require("./components/featuregrid.model")(sequelize); // Feature grid section model
 const Featuregridcard = require("./components/featuregridcard.model")(sequelize); // Feature cards section model
-
-
-
-
-
-
-//Sequelize associations, table and foreign key relationships 
-Solution.hasMany(Solutioncards, { foreignKey: "section_id", as: "Solution" });
-
-Solutioncards.belongsTo(Solution, { foreignKey: "section_id", as: "Solutioncards" });
-
 const AdminProfile = require("./adminProfile.model")(sequelize); // Admin profile model
 const Business = require("./business.model")(sequelize); // Business model for API clients
-
+const ProofTrustedLogo = require("./components/prooftrustedlogo.model")(sequelize); // Proof trusted logo section model
+const ProofStat = require("./components/proofstat.model")(sequelize); // Proof stat section model
+const ProofTestimonial = require("./components/prooftestimonial.model")(sequelize); // Proof testimonial section model
+const ProofSection = require("./components/proofsection.model")(sequelize); // Proof section  model
+const ProjectStat = require("./components/projectstat.model")(sequelize); // Project stat section model
+const ProjectSection = require("./components/projectsection.model")(sequelize); // Project section model
+const ProjectCaseStudies = require("./components/projectcasestudy.model")(sequelize); // Project testimonial section model
+const PricingFeature = require("./pricingpage/pricingfeature.model")(sequelize); // Pricing feature section model
+const PricingSection = require("./pricingpage/pricingsection.model")(sequelize); // Pricing section model
+const PricingFaq = require("./pricingpage/pricingfaq.model")(sequelize); // Pricing faq section model
+const PricingPlan = require("./pricingpage/pricingplan.model")(sequelize); // Pricing plan section model
+const PricingAddOn = require("./pricingpage/pricingaddon.model")(sequelize); // Pricing add on section model
 // Import associations function
 const defineAssociations = require("./associations");
 
@@ -57,6 +57,18 @@ DB.Featuregrid = Featuregrid;      // Feature grid section model
 DB.Featuregridcard = Featuregridcard;      // Feature cards section model
 DB.AdminProfile = AdminProfile; // Admin profile model for extended user information
 DB.Business = Business; // Business model for API clients
+DB.ProofSection = ProofSection; // Proof section model
+DB.ProofTrustedLogo = ProofTrustedLogo; // Proof trusted logo model
+DB.ProofStat = ProofStat; // Proof stat model
+DB.ProofTestimonial = ProofTestimonial; // Proof testimonial model
+DB.ProjectSection = ProjectSection; // Project section model
+DB.ProjectStat = ProjectStat; // Project stat model
+DB.ProjectCaseStudies = ProjectCaseStudies; // Project case studies model
+DB.PricingFaq = PricingFaq; // Pricing FAQ model
+DB.PricingFeature = PricingFeature; // Pricing feature model
+DB.PricingPlan = PricingPlan; // Pricing plan model
+DB.PricingSection = PricingSection; // Pricing section model
+DB.PricingAddOn = PricingAddOn; // Pricing add on model
 
 // Set up model associations
 defineAssociations(DB);

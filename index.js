@@ -64,7 +64,7 @@ app.get('/dashboard', (req, res) => {
  * 2. Creates/updates database tables based on our models
  * 3. Starts the web server
  */
-sequelize.sync({ alter: true }) // alter: true updates existing tables without losing data
+sequelize.sync({ force: false }) // Only creates tables if they don’t exist Data and schema preserved
   .then(() => {
     // Database connection successful
     console.log("DB connected");
