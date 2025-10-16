@@ -35,6 +35,20 @@ const PricingSection = require("./pricingpage/pricingsection.model")(sequelize);
 const PricingFaq = require("./pricingpage/pricingfaq.model")(sequelize); // Pricing faq section model
 const PricingPlan = require("./pricingpage/pricingplan.model")(sequelize); // Pricing plan section model
 const PricingAddOn = require("./pricingpage/pricingaddon.model")(sequelize); // Pricing add on section model
+const AboutSection = require("./aboutpage/aboutsection.model")(sequelize); // About section model
+const AboutStat = require("./aboutpage/aboutstat.model")(sequelize); // About stat section model
+const CareerJobListing = require("./careerpage/careerjoblisting.model")(sequelize); // Career job listing section model
+const CareerBenefit = require("./careerpage/careerbenefit.model")(sequelize); // Career benefit section model
+const CareerPage = require("./careerpage/careerpage.model")(sequelize); // Career page model
+const ContactPage = require("./contactpage/contactpage.model")(sequelize); // Contact page model
+const ContactForm = require("./contactpage/contactform.model")(sequelize); // Contact form model
+const ContactOfficeLocation = require("./contactpage/contactofficelocation.model")(sequelize); // Contact Contact Office Location model
+const ContactFaq = require("./contactpage/contactfaq.model")(sequelize); // Contact FAQ model
+const ContactSupportOption = require("./contactpage/contactsupport.model")(sequelize); // Contact support option model
+const DeveloperEndpoint = require("./developerspage/developerendpoint.model")(sequelize); // Developer endpoint model
+const DeveloperPage = require("./developerspage/developerspage.model")(sequelize); // Developer page model
+const DeveloperSdk = require("./developerspage/developersdk.model")(sequelize); // Developer SDK model
+
 // Import associations function
 const defineAssociations = require("./associations");
 
@@ -69,6 +83,19 @@ DB.PricingFeature = PricingFeature; // Pricing feature model
 DB.PricingPlan = PricingPlan; // Pricing plan model
 DB.PricingSection = PricingSection; // Pricing section model
 DB.PricingAddOn = PricingAddOn; // Pricing add on model
+DB.AboutSection = AboutSection; // About section model
+DB.AboutStat = AboutStat; // About stat model
+DB.CareerPage = CareerPage; // Career page model
+DB.CareerBenefit = CareerBenefit; // Career benefit model
+DB.CareerJobListing = CareerJobListing; // Career job listing model
+DB.ContactPage = ContactPage; // Contact page model
+DB.ContactForm = ContactForm; // Contact form model
+DB.ContactFaq = ContactFaq; // Contact FAQ model
+DB.ContactOfficeLocation = ContactOfficeLocation; // Contact office location model
+DB.ContactSupportOption = ContactSupportOption; // Contact support option model
+DB.DeveloperEndpoint = DeveloperEndpoint; // Developer endpoint model
+DB.DeveloperPage = DeveloperPage; // Developer page model
+DB.DeveloperSdk = DeveloperSdk; // Developer SDK model
 
 // Set up model associations
 defineAssociations(DB);

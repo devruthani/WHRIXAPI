@@ -7,6 +7,8 @@
  * This is a common pattern in Sequelize applications to keep associations organized.
  */
 
+const { Association } = require("sequelize");
+
 /**
  * Define Model Associations
  * 
@@ -16,8 +18,9 @@
  * @param {Object} models - Object containing all our models
  */
 const defineAssociations = (models) => {
-  const { User, AdminProfile, Career, Business, Solution, Solutioncards, ProofSection, ProofStat, ProofTestimonial, ProofTrustedLogo 
-, Featuregrid, Featuregridcard, ProjectStat, ProjectSection, ProjectCaseStudies, PricingAddOn, PricingFeature, PricingFaq, PricingPlan, PricingSection
+    const { User, AdminProfile, Business, Solution, Solutioncards, ProofSection, ProofStat, ProofTestimonial, ProofTrustedLogo, 
+    ProjectStat, ProjectSection, ProjectCaseStudies, PricingPlan, PricingAddOn, PricingFaq, PricingSection, PricingFeature, AboutSection, 
+    AboutStat, CareerJobListing, CareerBenefit, CareerPage, ContactPage, ContactFaq, DeveloperEndpoint, DeveloperPage, DeveloperSdk
 
   } = models;
 
@@ -89,31 +92,102 @@ ProofTrustedLogo.belongsTo(ProofSection, { foreignKey: "proof_section_id" });
   });
 /* -------------------- association for pricing sections -------------------- */
  
-    PricingSection.hasMany(models.PricingPlan, {
+    PricingSection.hasMany(PricingPlan, {
       foreignKey: "section_id",
       as: "plans",
       onDelete: "CASCADE",
     });
-    PricingSection.hasMany(models.PricingAddOn, {
+    PricingSection.hasMany(PricingAddOn, {
       foreignKey: "section_id",
       as: "addons",
       onDelete: "CASCADE",
     });
-    PricingSection.hasMany(models.PricingFaq, {
+    PricingSection.hasMany(PricingFaq, {
       foreignKey: "section_id",
       as: "faqs",
       onDelete: "CASCADE",
     });
  
-  PricingPlan.associate = (models) => {
-    PricingPlan.hasMany(models.PricingFeature, {
+  
+    PricingPlan.hasMany(PricingFeature, {
       foreignKey: "plan_id",
       as: "features",
       onDelete: "CASCADE",
     });
-  };
+  
+  /* ----------------------- association for about page ----------------------- */
 
+ 
+    AboutSection.hasMany(AboutStat, {
+      foreignKey: "about_id",
+      as: "stats",
+      onDelete: "CASCADE",
+    });
+    AboutStat.belongsTo(AboutSection, {
+      foreignKey: "about_id",
+      as: "stats",
+     
+    });
+    /* --------------------------- career Association --------------------------- */
+    // === Associations ===
 
+    CareerPage.hasMany(CareerJobListing, {
+      foreignKey: "careerpage_id",
+      as: "joblisting",
+      onDelete: "CASCADE",
+    });
+
+    CareerPage.hasMany(CareerBenefit, {
+      foreignKey: "careerpage_id",
+      as: "careerbenefit",
+      onDelete: "CASCADE",
+    });
+
+     CareerJobListing.belongsTo(CareerPage, {
+      foreignKey: "careerpage_id",
+      as: "joblisting",
+    });
+       CareerBenefit.belongsTo(CareerPage, {
+      foreignKey: "careerpage_id",
+      as: "careerbenefit",
+    });
+    /* ------------------------ contact page association ------------------------ */
+
+    ContactPage.hasMany(ContactFaq, { 
+      foreignKey: "contactPageId",
+      as: "contactFaq",
+        onDelete: "CASCADE" 
+      });
+
+  ContactFaq.belongsTo(ContactPage, 
+    { foreignKey: "contactPageId",
+      as: "contactFaq", 
+
+    });
+    /* --------------------- Association for developers page -------------------- */
+        // One Developer Page has many SDKs
+    DeveloperPage.hasMany(DeveloperSdk, {
+      foreignKey: "developerpageid",
+      as: "sdks",
+      onDelete: "CASCADE",
+    });
+
+      // One Developer Page has many API Endpoints
+    DeveloperPage.hasMany(DeveloperEndpoint, {
+      foreignKey: "developerpageid",
+      as: "endpoints",
+      onDelete: "CASCADE",
+    });
+
+     DeveloperSdk.belongsTo(DeveloperPage, {
+      foreignKey: "developerpageid",
+      as: "developerPage",
+    });
+
+     DeveloperEndpoint.belongsTo(DeveloperPage, {
+      foreignKey: "developerpageid",
+      as: "developerPage",
+    });
 
 
   // Note: Career model doesn't have direct relationships with User/AdminProfile
