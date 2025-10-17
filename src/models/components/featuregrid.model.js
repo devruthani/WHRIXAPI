@@ -1,39 +1,45 @@
+
+/**
+ * FeatureGrid Model
+ * 
+ * Represents the main "Feature Section" displayed on the homepage or
+ * features page. Each FeatureGrid can contain multiple FeatureItems.
+ */
+
 const { DataTypes } = require("sequelize");
 const generateTimestamps = require("../timestamp");
 
-// FeatureGridSection - manages section header (badge, headline, description).
-
 module.exports = (sequelize) => {
-  const Featuregrid = sequelize.define("Featuregrid", {
-    // Badge text at the top (e.g. "CORE CAPABILITIES")
-    badge_text: {
+  const FeatureGrid = sequelize.define("FeatureGrid", {
+    // === Section Header ===
+    section_tag: {
       type: DataTypes.STRING,
       allowNull: true,
+      comment: "Small label above the title (e.g., 'AFRICAN EXCELLENCE')",
     },
-
-    // Main headline text (e.g. "Enterprise-Grade Address")
-    headline: {
+    section_title: {
       type: DataTypes.STRING,
       allowNull: false,
+      comment: "Main headline text (e.g., 'Built for Africa, Trusted Worldwide')",
     },
-
-    // Highlighted part of headline (e.g. "Verification Platform")
-    headline_highlight: {
+    section_highlight: {
       type: DataTypes.STRING,
       allowNull: true,
+      comment: "Highlighted part of the title (e.g., 'Trusted Worldwide')",
     },
-
-    // Supporting description text under headline
-    description: {
+    section_description: {
       type: DataTypes.TEXT,
       allowNull: true,
+      comment: "Short paragraph explaining the section's purpose",
     },
-
-    // Custom timestamps
     ...generateTimestamps(),
-  }, {
+    
+    
+  },
+   {
+    tableName: "Featuregrids",
     timestamps: false,
   });
-
-  return Featuregrid;
+  
+  return FeatureGrid;
 };

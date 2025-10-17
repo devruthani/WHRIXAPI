@@ -16,20 +16,19 @@ const sequelize = require("../config/database");  // Our database connection
 // Each model is a function that takes the sequelize connection and returns a model
 const Career = require("./career.model")(sequelize); // Career/job posting model
 const User = require("./user.model")(sequelize);     // User/admin authentication model
-const Hero = require("./components/hero.model")(sequelize);       // Hero section model
+const ParallaxHero = require("./components/parallaxhero.model")(sequelize);       // Hero section model
 const Solution = require("./components/solution.model")(sequelize); // Solution section model
-const Solutioncards = require("./components/solutioncards.model")(sequelize); // Solution cards section model
-const Featuregrid = require("./components/featuregrid.model")(sequelize); // Feature grid section model
-const Featuregridcard = require("./components/featuregridcard.model")(sequelize); // Feature cards section model
+const InteractiveAfricanMap = require("./components/interactiveafricanmap.model")(sequelize); // Interactive African map section model
+const MapCountry = require("./components/mapcountry.model")(sequelize); // Map country section model
+const FeatureGrid = require("./components/featuregrid.model")(sequelize); // Feature grid section model
+const FeaturegridItem = require("./components/featuregriditem.model")(sequelize); // Feature grid item section model
 const AdminProfile = require("./adminProfile.model")(sequelize); // Admin profile model
 const Business = require("./business.model")(sequelize); // Business model for API clients
-const ProofTrustedLogo = require("./components/prooftrustedlogo.model")(sequelize); // Proof trusted logo section model
-const ProofStat = require("./components/proofstat.model")(sequelize); // Proof stat section model
-const ProofTestimonial = require("./components/prooftestimonial.model")(sequelize); // Proof testimonial section model
+
 const ProofSection = require("./components/proofsection.model")(sequelize); // Proof section  model
-const ProjectStat = require("./components/projectstat.model")(sequelize); // Project stat section model
+
 const ProjectSection = require("./components/projectsection.model")(sequelize); // Project section model
-const ProjectCaseStudies = require("./components/projectcasestudy.model")(sequelize); // Project testimonial section model
+
 const PricingFeature = require("./pricingpage/pricingfeature.model")(sequelize); // Pricing feature section model
 const PricingSection = require("./pricingpage/pricingsection.model")(sequelize); // Pricing section model
 const PricingFaq = require("./pricingpage/pricingfaq.model")(sequelize); // Pricing faq section model
@@ -64,20 +63,21 @@ DB.sequelize = sequelize;
 // Add all our models to the DB object
 DB.Career = Career;  // Career model for job postings
 DB.User = User;      // User model for admin authentication
-DB.Hero = Hero;      // Hero section model
+DB.ParallaxHero = ParallaxHero;      // ParallaxHero section model
+DB.InteractiveAfricanMap = InteractiveAfricanMap;      // Interactive African Map section model
+DB.MapCountry = MapCountry;      // Map Country section model
 DB.Solution = Solution;      // Solution section model
-DB.Solutioncards = Solutioncards;      // Solution cards section model
-DB.Featuregrid = Featuregrid;      // Feature grid section model
-DB.Featuregridcard = Featuregridcard;      // Feature cards section model
+
+DB.FeatureGrid = FeatureGrid;      // Feature grid section model
+DB.FeaturegridItem = FeaturegridItem;      // Feature grid item section model
 DB.AdminProfile = AdminProfile; // Admin profile model for extended user information
 DB.Business = Business; // Business model for API clients
 DB.ProofSection = ProofSection; // Proof section model
-DB.ProofTrustedLogo = ProofTrustedLogo; // Proof trusted logo model
-DB.ProofStat = ProofStat; // Proof stat model
-DB.ProofTestimonial = ProofTestimonial; // Proof testimonial model
+
+
 DB.ProjectSection = ProjectSection; // Project section model
-DB.ProjectStat = ProjectStat; // Project stat model
-DB.ProjectCaseStudies = ProjectCaseStudies; // Project case studies model
+
+
 DB.PricingFaq = PricingFaq; // Pricing FAQ model
 DB.PricingFeature = PricingFeature; // Pricing feature model
 DB.PricingPlan = PricingPlan; // Pricing plan model

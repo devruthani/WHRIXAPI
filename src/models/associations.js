@@ -20,7 +20,8 @@ const { Association } = require("sequelize");
 const defineAssociations = (models) => {
     const { User, AdminProfile, Business, Solution, Solutioncards, ProofSection, ProofStat, ProofTestimonial, ProofTrustedLogo, 
     ProjectStat, ProjectSection, ProjectCaseStudies, PricingPlan, PricingAddOn, PricingFaq, PricingSection, PricingFeature, AboutSection, 
-    AboutStat, CareerJobListing, CareerBenefit, CareerPage, ContactPage, ContactFaq, DeveloperEndpoint, DeveloperPage, DeveloperSdk
+    AboutStat, CareerJobListing, CareerBenefit, CareerPage, ContactPage, ContactFaq, DeveloperEndpoint, DeveloperPage, DeveloperSdk,
+    InteractiveAfricanMap, MapCountry, FeatureGrid, FeaturegridItem
 
   } = models;
 
@@ -38,60 +39,6 @@ const defineAssociations = (models) => {
   });
 
 
-  // landing associations
-  Solution.hasMany(Solutioncards, { 
-  foreignKey: "section_id",   //foreignKey in solution table
-  as: "Solution" });          //Alias for the relationship
-
-  Solutioncards.belongsTo(Solution, { 
-  foreignKey: "section_id",   //foreignKey in solutioncard table
-  as: "Solutioncards" });      //Alias for the relationship
-
-  /* -------------------- foreignkeys to proofsection table ------------------- */
-  ProofSection.hasMany(ProofStat, {
-  foreignKey: "proof_section_id",
-  as: "stats",
-});
-ProofStat.belongsTo(ProofSection, { foreignKey: "proof_section_id" });
-
-ProofSection.hasMany(ProofTestimonial, {
-  foreignKey: "proof_section_id",
-  as: "testimonials",
-});
-ProofTestimonial.belongsTo(ProofSection, { foreignKey: "proof_section_id" });
-
-ProofSection.hasMany(ProofTrustedLogo, {
-  foreignKey: "proof_section_id",
-  as: "trusted_logos",
-});
-ProofTrustedLogo.belongsTo(ProofSection, { foreignKey: "proof_section_id" });
-
-/* ------------------ foreignkey to project section tabele ------------------ */
-//  One Project Section → Many Case Studies
-  ProjectSection.hasMany(ProjectCaseStudies, {
-    foreignKey: "section_id",
-    as: "case_studies",
-    onDelete: "CASCADE",
-  });
-
-  ProjectCaseStudies.belongsTo(ProjectSection, {
-    foreignKey: "section_id",
-    as: "section",
-  });
-
-  // One Project Section → Many Stats
-  ProjectSection.hasMany(ProjectStat, {
-    foreignKey: "section_id",
-    as: "stats",
-    onDelete: "CASCADE",
-  });
-
-  ProjectStat.belongsTo(ProjectSection, {
-    foreignKey: "section_id",
-    as: "section",
-  });
-/* -------------------- association for pricing sections -------------------- */
- 
     PricingSection.hasMany(PricingPlan, {
       foreignKey: "section_id",
       as: "plans",
@@ -188,6 +135,33 @@ ProofTrustedLogo.belongsTo(ProofSection, { foreignKey: "proof_section_id" });
       foreignKey: "developerpageid",
       as: "developerPage",
     });
+
+    /* -------------------- InteractiveAfricanMap association ------------------- */
+
+    InteractiveAfricanMap.hasMany(MapCountry, {
+    foreignKey: "mapId",
+    as: "countries",
+    onDelete: "CASCADE",
+  });
+
+  MapCountry.belongsTo(InteractiveAfricanMap, {
+    foreignKey: "mapId",
+    as: "map",
+  });
+
+  /* ------------------------- featuregrid association ------------------------ */
+  
+
+  FeatureGrid.hasMany(FeaturegridItem, {
+    foreignKey: "featuregridId",
+    as: "features",
+    onDelete: "CASCADE",
+  });
+
+  FeaturegridItem.belongsTo(FeatureGrid, {
+    foreignKey: "featuregridId",
+    as: "featureGrid",
+  });
 
 
   // Note: Career model doesn't have direct relationships with User/AdminProfile
