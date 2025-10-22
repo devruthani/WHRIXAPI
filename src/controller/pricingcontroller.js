@@ -1,35 +1,36 @@
 
+
 const express = require('express');     // Web framework for creating API routes
 const crypto = require('crypto'); 
-const {ContactPage, ContactFaq, ContactForm, ContactofficialOption, ContactOfficeLocation} = require("../models")
+const { PricingAddOn, PricingFaq, PricingFeature, PricingPlan, PricingSection, PricingSection } = require("../models")
 
 
 
 
-const contactController = {
+const pricingcontroller = {
 
     /* -------------------------------------------------------------------------- */
-    /*                            contact page section                            */
+    /*                            pricing section                            */
     /* -------------------------------------------------------------------------- */
 
-    /* --------------------------- create contact page -------------------------- */
-    async createContactPage(req, res) {
+    /* --------------------------- create pricing -------------------------- */
+    async createPricingSection(req, res) {
         try {
 
-            const {hero_tagling, hero_title, hero_highlight,hero_description,support_title,support_subtitle,faq_title,faq_description} =req.body
-            const contactPage = await ContactPage.create({
-                hero_tagling, hero_title, hero_highlight,hero_description,support_title,support_subtitle,faq_title,faq_description
+            const {title_text, subtitle_text, badge_text, highlight_text} =req.body
+            const Pricingsection = await PricingSection.create({
+                title_text, subtitle_text, badge_text, highlight_text
             })
-            if(contactPage){
+            if(Pricingsection){
                 return res.status(200).json({
                     error:false,
-                    message: "Contact Page created successfully",
+                    message: "Pricing section created successfully",
                     
                 })
             }else{
                 return res.status(500).json({
                     error:true,
-                    message: "Failed to create Contact Page",
+                    message: "Failed to create Pricing section",
                     
                 })
             }
@@ -45,20 +46,20 @@ const contactController = {
         }
         
     },
-    /* -------------------------- get all contact page -------------------------- */
-    async getContactPage(req,res){
+    /* -------------------------- get all Pricing section -------------------------- */
+    async getPrisingsections(req,res){
         try {
-            const getContactPage = await ContactPage.findAll()
-            if(getContactPage){
+            const getPrisingsections = await PricingSection.findAll()
+            if(getPrisingsections){
                 return res.status(200).json({
                     error:false,
-                    message: "Contact Page fetched successfully",
-                    data:getContactPage
+                    message: "Pricing section fetched successfully",
+                    data:getPrisingsections
                 })
             }else{
                 return res.status(500).json({
                     error:true,
-                    message: "Failed to fetch Contact Page",
+                    message: "Failed to fetch Pricing section",
 
                 })
             }
@@ -79,25 +80,25 @@ const contactController = {
 
 
     /* -------------------------------------------------------------------------- */
-    /*                             contact FAQ section                            */
+    /*                             Pricing addon section                            */
     /* -------------------------------------------------------------------------- */
-    async contactFaq(req,res){
+    async createPricingaddon(req,res){
         try {
 
-            const {category, question, answer, order} =req.body
-            const contactFaq = await ContactFaq.create({category, question, answer, order
+            const {name_text, description_text, price_text} =req.body
+            const Pricingaddon = await PricingAddOn.create({name_text, description_text, price_text
              
             })
-            if(contactFaq){
+            if(Pricingaddon){
                 return res.status(200).json({
                     error:false,
-                    message: "Contact FAQ created successfully",
+                    message: "Pricing addon created successfully",
                     
                 })
             }else{
                 return res.status(500).json({
                     error:true,
-                    message: "Failed to create Contact FAQ",
+                    message: "Failed to create Pricing addon",
                     
                 })
             }
@@ -112,20 +113,20 @@ const contactController = {
     
         }
     },
-      /* -------------------------- get all contact faq -------------------------- */
-    async getContactFaq(req,res){
+      /* -------------------------- get all Pricing addon -------------------------- */
+    async getPricingaddon(req,res){
         try {
-            const getContactFaq = await ContactFaq.findAll()
-            if(getContactFaq){
+            const getPricingaddon = await PricingAddOn.findAll()
+            if(getPricingaddon){
                 return res.status(200).json({
                     error:false,
-                    message: "Contact faq fetched successfully",
-                    data:getContactFaq
+                    message: "Pricing addon fetched successfully",
+                    data:getPricingaddon
                 })
             }else{
                 return res.status(500).json({
                     error:true,
-                    message: "Failed to fetch Contact Faq",
+                    message: "Failed to fetch Pricing addon",
 
                 })
             }
@@ -142,25 +143,25 @@ const contactController = {
         
     },
     /* -------------------------------------------------------------------------- */
-    /*                             contact Form section                            */
+    /*                             Pricing faq section                            */
     /* -------------------------------------------------------------------------- */
-    async contactForm(req,res){
+    async createPricingfaq(req,res){
         try {
 
-            const {name, email, phone, option, message, consent} =req.body
-            const contactForm = await ContactForm.create({name, email, phone, option, message, consent
+            const {question_text, answer_text,} =req.body
+            const Pricingfaq = await PricingFaq.create({question_text, answer_text,
              
             })
-            if(contactForm){
+            if(Pricingfaq){
                 return res.status(200).json({
                     error:false,
-                    message: "Contact Form created successfully",
+                    message: "Pricing faq created successfully",
                     
                 })
             }else{
                 return res.status(500).json({
                     error:true,
-                    message: "Failed to create Contact Form",
+                    message: "Failed to create pricing faq",
                     
                 })
             }
@@ -175,20 +176,20 @@ const contactController = {
     
         }
     },
-      /* -------------------------- get all contact form -------------------------- */
-    async getContactForm(req,res){
+      /* -------------------------- get all Pricing faq -------------------------- */
+    async getPricingfaq(req,res){
         try {
-            const getContactForm = await ContactForm.findAll()
-            if(getContactForm){
+            const getPricingfaq = await PricingFaq.findAll()
+            if(getPricingfaq){
                 return res.status(200).json({
                     error:false,
-                    message: "Contact form fetched successfully",
-                    data:getContactForm
+                    message: "Pricing faq fetched successfully",
+                    data:getPricingfaq
                 })
             }else{
                 return res.status(500).json({
                     error:true,
-                    message: "Failed to fetch Contact Form",
+                    message: "Failed to fetch pricing faq",
 
                 })
             }
@@ -205,25 +206,25 @@ const contactController = {
         
     },
     /* -------------------------------------------------------------------------- */
-    /*                             contact support section                            */
+    /*                             pricing feature section                            */
     /* -------------------------------------------------------------------------- */
-    async contactSupport(req,res){
+    async pricingfeature(req,res){
         try {
 
-            const {title, description,availability, action_label, response_time, icon_name} =req.body
-            const contactsupport = await ContactSupportOption.create({title, description,availability, action_label, response_time, icon_name
+            const {feature_text, feature_type,} =req.body
+            const pricingfeature = await PricingFeature.create({feature_text, feature_type,
              
             })
-            if(contactsupport){
+            if(pricingfeature){
                 return res.status(200).json({
                     error:false,
-                    message: "Contact support created successfully",
+                    message: "pricing feature created successfully",
                     
                 })
             }else{
                 return res.status(500).json({
                     error:true,
-                    message: "Failed to create Contact support",
+                    message: "Failed to create pricing feature",
                     
                 })
             }
@@ -238,20 +239,20 @@ const contactController = {
     
         }
     },
-      /* -------------------------- get all contact support -------------------------- */
-    async getContactSupport(req,res){
+      /* -------------------------- get all pricing feature -------------------------- */
+    async getpricingfeature(req,res){
         try {
-            const getContactsupport = await ContactSupportOption.findAll()
-            if(getContactsupport){
+            const getpricingfeature = await PricingFeature.findAll()
+            if(getpricingfeature){
                 return res.status(200).json({
                     error:false,
-                    message: "Contact support fetched successfully",
-                    data:getContactsupport
+                    message: "pricing feature fetched successfully",
+                    data:getpricingfeature
                 })
             }else{
                 return res.status(500).json({
                     error:true,
-                    message: "Failed to fetch Contact support",
+                    message: "Failed to fetch pricing feature",
 
                 })
             }
@@ -268,25 +269,25 @@ const contactController = {
         
     },
     /* -------------------------------------------------------------------------- */
-    /*                             contact official location                           */
+    /*                             pricing plan                           */
     /* -------------------------------------------------------------------------- */
-    async contactofficial(req,res){
+    async pricingPlan(req,res){
         try {
 
-            const {city, country, address, email, timezone, latitude,longitude} =req.body
-            const contactofficial = await ContactOfficeLocation.create({city, country, address, email, timezone, latitude, longitude
+            const {name_text, icon_name, monthly_price, annual_price, description_text, cta_text, is_popular} =req.body
+            const pricingPlan = await PricingPlan.create({name_text, icon_name, monthly_price, annual_price, description_text, cta_text, is_popular
              
             })
-            if(contactofficial){
+            if(pricingPlan){
                 return res.status(200).json({
                     error:false,
-                    message: "Contact official location created successfully",
+                    message: "pricing plan created successfully",
                     
                 })
             }else{
                 return res.status(500).json({
                     error:true,
-                    message: "Failed to create Contact official location",
+                    message: "Failed to create pricing plan",
                     
                 })
             }
@@ -301,20 +302,20 @@ const contactController = {
     
         }
     },
-      /* -------------------------- get all contact official location -------------------------- */
-    async getContactofficial(req,res){
+      /* -------------------------- get all pricing plan -------------------------- */
+    async getpricingPlan(req,res){
         try {
-            const getContactofficial = await ContactOfficeLocation.findAll()
-            if(getContactofficial){
+            const getpricingPlan = await PricingPlan.findAll()
+            if(getpricingPlan){
                 return res.status(200).json({
                     error:false,
-                    message: "Contact official location fetched successfully",
-                    data:getContactofficial
+                    message: "pricing plan fetched successfully",
+                    data:getpricingPlan
                 })
             }else{
                 return res.status(500).json({
                     error:true,
-                    message: "Failed to fetch Contact official",
+                    message: "Failed to fetch Pricing Plan",
 
                 })
             }
@@ -330,42 +331,7 @@ const contactController = {
         }
         
     },
-
-
-    
-   
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 }
-module.exports = {contactController};
+module.exports = {pricingcontroller};
